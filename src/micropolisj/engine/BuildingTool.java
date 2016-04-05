@@ -51,6 +51,9 @@ class BuildingTool extends ToolStroke
 
 		case AIRPORT:
 			return applyZone(eff, AIRPORT);
+			
+		case AIRFILTER:
+			return applyZone(eff, AIRFILTER);
 
 		default:
 			// not expected

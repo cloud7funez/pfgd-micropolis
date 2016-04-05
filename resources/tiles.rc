@@ -1009,3 +1009,13 @@
 957   misc_animation@0,2080
 958   misc_animation@0,2096
 959   misc_animation@0,2112
+# BEGIN AIR FILTER #
+960   airfilter@0,0         (conducts)
+961   airfilter@16,0        (conducts)
+962   airfilter@32,0        (conducts)
+963   airfilter@0,16        (conducts)
+964   airfilter@16,16 (zone)(conducts)(building=3x3)(behavior=AIRFILTER)(pollution=-100)
+965   airfilter@32,16       (conducts)
+966   airfilter@0,32        (conducts)
+967   airfilter@16,32       (conducts)
+968   airfilter@32,32       (conducts)

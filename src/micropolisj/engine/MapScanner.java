@@ -41,7 +41,8 @@ class MapScanner extends TileBehavior
 		STADIUM_EMPTY,
 		STADIUM_FULL,
 		AIRPORT,
-		SEAPORT;
+		SEAPORT,
+		AIRFILTER;
 	}
 
 	@Override
@@ -83,6 +84,9 @@ class MapScanner extends TileBehavior
 			return;
 		case SEAPORT:
 			doSeaport();
+			return;
+		case AIRFILTER:
+			doAirfilter();
 			return;
 		default:
 			assert false;
@@ -311,6 +315,23 @@ class MapScanner extends TileBehavior
 			city.generateShip();
 		}
 	}
+	
+	void doAirfilter()
+	{
+		boolean powerOn = checkZonePower();
+		if (!city.noDisasters && PRNG.nextInt(Micropolis.MltdwnTab[city.gameLevel]+1) == 0) {
+			city.doMeltdown(xpos, ypos);
+			return;
+		}
+		
+		city.airfilterCount++;
+		if ((city.cityTime % 8) == 0) {
+			repairZone(AIRFILTER, 3);
+		}
+		
+		city.powerPlants.add(new CityLocation(xpos, ypos));
+	}
+	
 
 	/**
 	 * Place hospital or church if needed.

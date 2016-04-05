@@ -125,6 +125,7 @@ public class Micropolis
 	int nuclearCount;
 	int seaportCount;
 	int airportCount;
+	int airfilterCount;
 
 	int totalPop;
 	int lastCityPop;
@@ -135,6 +136,7 @@ public class Micropolis
 	int lastTotalPop;
 	int lastFireStationCount;
 	int lastPoliceCount;
+	int lastAirfilterCount;
 
 	int trafficMaxLocationX;
 	int trafficMaxLocationY;
@@ -538,6 +540,7 @@ public class Micropolis
 		nuclearCount = 0;
 		seaportCount = 0;
 		airportCount = 0;
+		airfilterCount = 0;
 		powerPlants.clear();
 
 		for (int y = 0; y < fireStMap.length; y++) {
@@ -1467,6 +1470,7 @@ public class Micropolis
 		bb.put("STADIUM_FULL", new MapScanner(this, MapScanner.B.STADIUM_FULL));
 		bb.put("AIRPORT", new MapScanner(this, MapScanner.B.AIRPORT));
 		bb.put("SEAPORT", new MapScanner(this, MapScanner.B.SEAPORT));
+		bb.put("AIRFILTER", new MapScanner(this, MapScanner.B.AIRFILTER));
 
 		this.tileBehaviors = bb;
 	}
@@ -1730,6 +1734,7 @@ public class Micropolis
 		lastTotalPop = totalPop;
 		lastFireStationCount = fireStationCount;
 		lastPoliceCount = policeCount;
+		lastAirfilterCount = airfilterCount;
 
 		BudgetNumbers b = generateBudget();
 
@@ -1759,6 +1764,8 @@ public class Micropolis
 	}
 	public ArrayList<FinancialHistory> financialHistory = new ArrayList<FinancialHistory>();
 
+
+
 	void collectTax()
 	{
 		int revenue = budget.taxFund / TAXFREQ;
@@ -1786,6 +1793,9 @@ public class Micropolis
 
 	/** Annual maintenance cost of each fire station. */
 	static final int FIRE_STATION_MAINTENANCE = 100;
+	
+	/** Annual maintenance cost of each air filter. */
+	static final int AIR_FILTER_MAINTENANCE = 100;
 
 	/**
 	 * Calculate the current budget numbers.
@@ -1805,6 +1815,7 @@ public class Micropolis
 		b.roadRequest = (int)Math.round((lastRoadTotal + lastRailTotal * 2) * RLevels[gameLevel]);
 		b.fireRequest = FIRE_STATION_MAINTENANCE * lastFireStationCount;
 		b.policeRequest = POLICE_STATION_MAINTENANCE * lastPoliceCount;
+		b.airfilterRequest = AIR_FILTER_MAINTENANCE * lastAirfilterCount;
 
 		b.roadFunded = (int)Math.round(b.roadRequest * b.roadPercent);
 		b.fireFunded = (int)Math.round(b.fireRequest * b.firePercent);
